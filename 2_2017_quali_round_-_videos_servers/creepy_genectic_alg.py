@@ -46,6 +46,7 @@ def fitness_calculation(individual):
                     lci = aux
                     Ldi = endPoints['dtc'][ req[i,1] ] 
         fitness_value += (Ldi - lci)*req[i,2]
+    fitness_value *= 1000/np.sum(req[:,2])
     
 #        if notFeasible(indivi)  ...          
 
@@ -274,7 +275,8 @@ def spawn_individual(sizeInd):
 
 
 filename = 'me_at_the_zoo';
-#filename = "videos_worth_spreading";
+filename = "videos_worth_spreading"
+filename = 'example'
 #filename = "trending_today";
 #filename = "kittens.in";
 
@@ -339,7 +341,7 @@ while finish == False:
     fitness_max = np.append(fitness_max, aux )  
     if aux > maxGen:        
         maxGen = aux;
-        bestInd =  list( np.nonzero( gen[-1]['Individuals'][np.argmax(gen[-1]['Fitness'])])[0] )
+        bestInd =  list(  gen[-1]['Individuals'][np.argmax(gen[-1]['Fitness'])])
 #    fitness_avg = np.append(fitness_avg, sum(
 #        gen[-1]['Fitness'])/len(gen[-1]['Fitness']))
 

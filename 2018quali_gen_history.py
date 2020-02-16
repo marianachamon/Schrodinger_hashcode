@@ -25,16 +25,20 @@ def analyze_car(car):
         return 0
 #        score=0
     for i in range(0,T): 
-        step = abs(ab[car[k]]-xy[car[k]])        
-        if i >= totalSteps+sum(step):            
-            if sf[car[k],0] > i or sf[car[k],1] < i+sum(step):
+        step = xy[car[k]]-ab[car[k]]  
+        future_pos = pos+step
+
+        if future_pos[0] > R or future_pos[0]<0 or future_pos[1]>C or future_pos[1]<0:
+            return 0
+        if i >= totalSteps+sum(abs(step)):            
+            if sf[car[k],0] > i or sf[car[k],1] < i+sum(abs(step)):
                 return 0
 #                break
             else:
                 if sf[car[k],0] == totalSteps: #bonus!                
                     score += B
                 pos += step
-                totalSteps = totalSteps + sum(step)
+                totalSteps = totalSteps + sum(abs(step))
                 k += 1
                 if k==len(car):
                     break
@@ -223,7 +227,7 @@ def spawn_individual(sizeInd):
     
 
 filename = 'a_example'
-filename = 'b_should_be_easy'
+#filename = 'b_should_be_easy'
 ab = []
 xy=[]
 sf=[]
@@ -241,8 +245,8 @@ sf = np.array(sf)
 
 #%%
 
-POPSIZE = 100;
-GEN_MAX = 100;
+POPSIZE = 32;
+GEN_MAX = 20;
 g = 0;
 maxGen = 0;
 EXISTED_MAX = 100 # existed_max = 10000*2000/len(individual)
